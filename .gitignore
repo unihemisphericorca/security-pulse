@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.min.css
+*.min.js
+
+# Environment
+.env
+.env.local
+
+# Cache
+.cache/
+*.cache

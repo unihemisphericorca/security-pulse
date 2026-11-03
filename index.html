@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live Security & Hacking News Dashboard - Latest CVEs, breaches, exploits, and cybersecurity updates">
+    <title>🛡️ Security Pulse - Live Hacking News Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="scanline"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <h1>Security Pulse</h1>
+                <span class="badge live">LIVE</span>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <span class="stat-value" id="total-articles">--</span>
+                    <span class="stat-label">Articles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="critical-count">--</span>
+                    <span class="stat-label">Critical</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="last-update">--</span>
+                    <span class="stat-label">Updated</span>
+                </div>
+            </div>
+            <div class="controls">
+                <select id="source-filter" class="filter-select">
+                    <option value="all">All Sources</option>
+                </select>
+                <select id="severity-filter" class="filter-select">
+                    <option value="all">All Severities</option>
+                    <option value="critical">🔴 Critical</option>
+                    <option value="high">🟠 High</option>
+                    <option value="medium">🟡 Medium</option>
+                    <option value="low">🟢 Low</option>
+                </select>
+                <button id="refresh-btn" class="btn-refresh" title="Refresh now">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6"></path>
+                        <path d="M1 20v-6h6"></path>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <aside class="sidebar">
+            <section class="sidebar-section">
+                <h2 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Quick Stats
+                </h2>
+                <div class="quick-stats" id="quick-stats">
+                    <div class="quick-stat loading">Loading...</div>
+                </div>
+            </section>
+
+            <section class="sidebar-section">
+                <h2 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Trending CVEs
+                </h2>
+                <div class="trending-cves" id="trending-cves">
+                    <div class="trending-item loading">Loading...</div>
+                </div>
+            </section>
+
+            <section class="sidebar-section">
+                <h2 class="section-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Sources
+                </h2>
+                <div class="source-list" id="source-list">
+                    <div class="source-item loading">Loading...</div>
+                </div>
+            </section>
+        </aside>
+
+        <section class="feed-section">
+            <div class="feed-header">
+                <h2 class="feed-title">Latest Security News</h2>
+                <div class="feed-meta">
+                    <span id="feed-count">Loading...</span>
+                    <span class="divider">|</span>
+                    <span id="feed-timestamp">Just now</span>
+                </div>
+            </div>
+            <div class="articles-grid" id="articles-grid">
+                <div class="article-card skeleton">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
+                <div class="article-card skeleton">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
+                <div class="article-card skeleton">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
+            </div>
+            <div class="load-more" id="load-more">
+                <button class="btn-load-more">Load More</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Built for <a href="https://github.com/unihemisphericorca/orca-brain" target="_blank">Orca Brain</a> • Data from public RSS feeds & APIs</p>
+            <p class="disclaimer">Educational purposes only • Stay legal, stay ethical</p>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
